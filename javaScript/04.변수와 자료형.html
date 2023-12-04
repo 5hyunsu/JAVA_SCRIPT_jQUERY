@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>변수와 자료형 </title>
+</head>
+<body>
+    <h1> 변수와 자료형 </h1>
+    <h2> 변수 선언시 var뿐만 아니라 let, const이용하여 선언 가능 </h2>
+
+    <h3> *var, let, cons의 차이점 </h3>
+
+    <h4> 1) 변수 선언 방법 </h4>
+    <button onclick="diffDeclare();"> 변수 선언 방법 </button>
+
+    <h4> 2) 스코프 (사용 가능한 범위) </h4>
+    <button onclick="diffScope();"> 스코프 (사용 가능한 범위)</button>
+
+    <script>
+        function diffDeclare() {
+            // 1) var 은 중복 선언이 가능 (단점) ,  재할당 가능
+            var userId = "user01";
+            console.log(userId);
+
+            var userId = "user02"; //중복선언 가능 
+            console.log(userId);
+
+            userId = "user03";   //재할당 가능 
+            console.log(userId);
+            console.log("---1번 끝----------------------");
+
+            // 2) let은 중복선언 불가능 , 재할당은 가능 
+            let userPwd = "pass01";
+            console.log(userPwd);
+                    // 쓰려고 하면 빨간색 오류 뜸, 중복 선언 불가능 
+                    // let userPwd = "pass01";
+                    // console.log(userPwd);
+            userPwd = "pass02";  // 재할당은 가능 
+            console.log(userPwd);
+
+            console.log("---2번 끝----------------------");
+
+
+            // 3) const는 중복선언 불가능 , 재할당도 불가능, (자바 상수 느낌)
+            //    한번 초기화 하면 값 변경 불가능 하다. 
+            const userName = "홍길동" ;
+            console.log(userName);
+            //consol.log(userName) = "홍길동";
+
+            // userName = "김길순";
+            // console.log(userName);
+            // 재할당이 되지 않아서  여기서는 오류가 안뜨지만 
+            // html 콘솔에서는 값이 뜨지 않는다. 
+
+            /*
+             var은 자유롭게 변수선언, 사용할 수 있다는 장점이 있지만 
+             중복된 변수가 남발할 수 있고 의도치 않게 값이 변경되어 있을 수 있다. 
+             =>가장 큰 단점  그래서 나온게 let하고 const가 나옴 (권장사항)
+
+             리액트 하다 보면 let하고 쓰는데 아직도 var을 가장 많이 쓴다. 
+             
+            */
+            
+            function diffScope(){
+                // 1) var: 변수가 선언된 "함수 영역" 내에서 사용 가능 
+                // var name="홍길동";
+                // console.log(name);
+
+                if(true) {
+                    var name = "이길동";
+                    console.log(name);
+                }
+                console.log(name);
+
+                for(var i=0;i<4 ; i++) {
+                    console.log(name);
+                }
+                console.log("i=" + i);
+                console.log("---3번 끝----------------------");
+
+                //2) let, const : 변수가 선언된 '블럭{}' 내에서만 사용 가능 (자바 유사)
+                if(true) {
+                    let hobby = "운동";
+                    const gender = "M";
+                }
+                console.log(hobby); 
+                console.log(gender);
+                // 사용 불가능 
+                // 오류가 뜬다 정의 되지 않았다.
+            }
+
+        }
+    </script>
+
+    <h3> * 변수 선언 위치에 따른 전역변수 / 지역변수 </h3>
+
+    <script>
+        //window.onload는 해당 문서가 로딩이 다 된 후에 바로 실행 시킬 코드를 넣어준다
+        window.onload = function() {
+            console.log("문서로딩완료");
+        // 익명함수 
+        }
+    </script>
+
+
+</body>
+</html>

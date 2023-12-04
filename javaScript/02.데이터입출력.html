@@ -15,6 +15,7 @@
         *window: 자바스크립트 내장 객체로 브라우저 창이 열릴때마다 하나씩 만들어지는 객체 
                  브라우저 창 안에 존재하는 모든 요소들의 최상위 객체(생략가능)
         *document: 웹 문서마다 하나씩 만들어지는 객체 (html 문서에 대한 정보들을 가지고 있음)
+        브라우저 창에 하나씩
         <br>
     </pre>
 
@@ -30,6 +31,8 @@
 
     <h3> 3) document.write("화면상에 출력할 문구");</h3>
     <button onClick="docWrite()">화면에출력</button>
+    <!--click이 붙으면 펑션 메소드 함수 -->
+    <!--가로 안에는 메소드 처럼 변수가 들어감 -->
 
         <script>
         function docWrite(){
@@ -224,6 +227,7 @@
              var str = "";
              for(var i=1; i<10; i++){
                 str += "<li>목록" + i + "</li>";
+                //플러스=  이렇게 해야 한바퀴 다 돈다. 
             }
 
             console.log(str);
@@ -234,7 +238,9 @@
 
     <h3> 4) 선택한 input요소.value;</h3>
     아이디 : <input type ="text" id="userId"><br>
+    <!--아이디 : <input type ="text" id="userId" value="userId"><br>-->
     비밀번호 : <input type ="password" id="userPwd"><br>
+    <!-- 비밀번호 : <input type ="password" id="userPwd" value="userPw"><br> -->
 
     <button on click="testsInput();">로그인</button>
     <!-- 스크립트 할 때는 type = "text"라고 써줘야 나중에 찾기가 편하다 -->
