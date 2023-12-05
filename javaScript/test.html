@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> 회원가입 폼 만들기 </title>
+
+</head>
+<body>
+    <!-- 회원가입 폼 간단하게 몇개 -->
+    <form action="member.jsp" method="post" name="regFrm">
+        <table border="1" width="400px">
+            <tr>
+                <td colspan="2" align="center">회원가입</td>
+            </tr>
+            <tr>
+                <td width="30%">아이디</td>
+                <td width="70%"><input name="id" size="25"></td>
+            </tr>
+            <tr>
+                <td>비밀번호 </td>
+                <td><input type="password" name="pwd" size="25"></td>
+            </tr>
+            <tr>
+                <td>비밀번호 확인</td>
+                <td><input type="password" name="repwd" size="25"></td>
+            </tr>
+            <tr>
+                <td colspan="2" align ="center">
+                    <input type="button" value="회원가입" onclick="inputCheck();">
+                    <input type="reset" value="초기화" >
+                </td>
+            </tr>
+            
+            <!--아이디가 비어있는지, 비밀번호가 동일한지 inputcheck로 확인 -->
+            <script>
+                function inputCheck() {
+                    let f =document.regFrm;
+                    //f로 받아서 밑에서 포커스 사용시 간단하게 사용 가능 
+                    if(document.regFrm.id.value == "") {
+                        alert("아이디를 입력해 주세요");
+                        f.id.focus();
+                        // member.jsp로 바로 넘어간다. 
+                        // 근데 못넘어가게 막아야 한다. 
+                        document.regFrm.id.focus();
+                        //아이디 부분에 커서 깜빡 깜빡 거리게 만들기 
+                        return;
+                    }
+
+                    if(document.regFrm.pwd.value != document.regFrm.repwd.value) {
+                        alert("비밀번호가 다릅니다");
+                        document.regFrm.repwd.value= "";
+                        document.regFrm.repwd.focus();
+                        return;
+                    }
+                    document.regFrm.submit();
+                    //확인 되었을때 페이지 넘어가도록 submit 자리 유의한다 
+                }
+            </script>
+
+
+
+        </table>
+
+    </form>
+</body>
+</html>

@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .area {border:1px solid;
+               width : 300px;
+               height : 100px;}
+    </style>    
+</head>
+<body>
+    <button id="btn">알림창 출력 </button>
+    <button onclick="btnclick();">콘솔출력</button>
+    <button onclick="docWrite()">화면에write출력</button>
+
+    <div class="area" id="area1">
+        변경하고자 할때 innerHTML, innerText
+    </div>
+    <button onclick="tagValue();"> 확인 </button>
+
+    <br><br>
+    <button onclick="testconfirm();">confirm클릭</button>
+    <div id ="area2"></div>
+    <br><br>
+    <button onclick="testPrompt();">prompt클릭</button>
+    <div id ="area3"></div>
+    <br><br>
+    <button onclick="testPrompt2();">숫자입력</button>
+    <ul id="area4">
+    </ul>
+    <br><br>
+    <br><br>
+    <h3> 아이디,비밀번호,로그인 </h3>
+    아이디: <input type ="text" id="userId"><br>
+    비밀번호 : <input type="password" id="userPwd"><br>
+    <button on click="testInput();">로그인</button>
+    <input id = "area5">
+
+
+    <script>
+        var btn =document.getElementById('btn');
+        btn.onclick= function() {
+            window.alert("알림창출력중");
+            console.log("콘솔로그알림");
+        }
+
+        function btnclick(){
+            window.alert("알림창 출력중 ");
+            console.log("콘솔로그그그");
+        }
+
+        function docWrite(){
+            var dWrite = "<table border='1'>";
+                dWrite += "<tr>";
+                dWrite +=    "<td>html</td>";
+                dWrite +=    "<td>css</td>";
+                dWrite += "</tr>";
+                dWrite += "</table>";
+            document.write(dWrite);
+        }
+
+        function tagValue(){
+            var divE1 = document.getElementById("area1");
+            console.log(divE1.id);  //id: 해당 요소의 id 속성 값 
+            console.log(divE1.className);   // classname: 해당요소의 class 속성의 값 
+            console.log(divE1.innerHTML);  //  innerHTML : 요소의 content 영역 안의 html 태그까지 포함 
+            console.log(divE1.innerText); //  innerHTML : 요소의 content 영역 안의 text 태그까지 포함 
+            divE1.innerHTML = "<h2>innerHTML로 속성값 변경함 </h2>";
+            divE1.style.backgroundColor = "red" ;
+            //divE1.innerText = "<h2>innerTEXT로 속성값 변경함 </h2>";
+            divE1.style.color = "yellow";
+        }
+
+        function testconfirm(){
+            var result = confirm("배고프면 확인, 아니면 취소");
+            if(result) {
+                console.log("배고픔");
+            } else {
+                console.log("배고픈게뭐야");
+            }
+        }
+        
+        var divE2 =document.getElementById("area2");
+
+        if(result) {
+            divE2.innerHTML = "<h3>innerhtml";
+        }   else {
+            divE2.innerHTML = "<h3>innerHTML";
+        }
+
+        function testPrompt(){
+            var name = prompt("이름");
+            var age = prompt("나이");
+
+            console.log(name);
+            console.log(age);
+
+            var divE3 = document.getElementById("area3");
+            divE3.innerHTML = "당신의이름은 <b>"
+                            + name + "</b> 나이는 <b>"
+                            + age + " </b>살"; 
+        }
+
+        function testPrompt2(){
+            var num = prompt("숫자만입력");
+            var str = "";
+            for (var i =1; i <num; i++){
+                str += "<li>목록" + i + "</li>";
+            }
+            
+            console.log(str);
+            document.getElementById("area4").innerHTML=str;
+        }
+
+        function testInput(){
+            var input1= document.getElementById("userId");
+            var input2= document.getElementById("userPwd");
+
+            console.dir(input1);
+
+            var id = input1.value;
+            var pwd = input2.value;
+
+            document.getElementById("area5").value=id + ", " +pwd;
+        }
+
+    </script>
+
+    <h3> 아이디 요소 가져오기 </h3>
+    <div id="area10" class="area">내용 </div>
+    <button onclick="accessId();"> 아이디로 접근 </button>
+
+    <script> 
+        function accessId() {
+            var area10 = document.getElementById("area10");
+            area10.innerHTML += "<br> 아이디로 접근성공 ! </br>";
+            area10.style.backgroundColor = "blue";
+            
+        }
+    
+    </script>
+
+    <div id ="area20" class="area" style="background: green;"></div>
+    <button onclick="changeColor();"> 클릭마다 색상 변경 </button>
+
+    <script>
+        function changeColor(){
+            var area20 = document.getElementById("area20");
+            console.log(area20.style.backgroundColor);
+            if(area20.style.backgroundColor =="green"){
+                area20.style.backgroundColor = "yellow";
+            } else {
+                area20.style.backgroundColor ="green";
+            }
+        }
+    </script>
+
+
+    <h3> 태그명을 이용하여 요소 가져오기 </h3>
+
+    <ul>
+        <li>목록1</li>
+        <li>목록2</li>
+        <li>목록3</li>
+        <li>목록4</li>
+    </ul>
+
+    <button onclick="accessTagName();">태그명으로 접근</button>
+    <!--검토 요함 -->
+    <script>
+        function accessTagName(){
+            var list = document.getElementById("li");
+            var area2 = document.getElementById("area2");
+            console.log(list);
+            console.log("배열의 크기(선택된 li요소 갯수) :" + list.length);
+            console.log(list[1]);
+        }
+    </script>
+
+
+    <h3> name 속성 값을 이용하여 요소 가져오기</h3>
+    <form action="">
+        <legend> 취미</legend>
+        <input type="checkbox" name="hobby" value="게임" id="game1" checked>
+        <label fot ="Ib_game"> 게임</label>
+    </form>
+
+    <br>
+    <div class="area" id="area30"></div>
+    <button onclick="accessName();"> name으로 접근 </button>"
+
+    <script>
+        function accessName() {
+            var hobby =document.getElementById("area30");
+            for (var i=0; i<hobby.length; i++){
+                if(hobby[i].checked){
+                    console.log(hobby[i].value);
+                    area3.innerHTML += hobby[i].value + "<br>";
+                }
+            }
+        }
+    </script>
+
+
+
+
+
+
+</body>
+</html>

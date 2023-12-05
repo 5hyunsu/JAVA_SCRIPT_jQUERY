@@ -56,7 +56,7 @@
             //여기는 스크립트다. 같다 (==)
             area2.style.backgroundColor = "yellow";
             } else {
-                area2.style.backgroundColor == "red";
+                area2.style.backgroundColor = "red";
             }
         }
     </script>
@@ -84,7 +84,7 @@
             // element가 여러개일 확률이 높기에 elements  s를 붙여준다. 
             var list = document.getElementsByTagName("li");
             var area2 = document.getElementById("area2");
-            //  element 는 id 제외하고 ★★★★  s붙는것 주의  ★★★
+            //  ★★★★★★★★★★★★element 는 id 제외하고 ★★★★  s붙는것 주의  ★★★★★★★★★★
             //var  배열, 인트 스트림이 var에 모두 들어간다. 
             //표시 안해줘도 다 들어간다. 
             console.log(list);
@@ -153,6 +153,7 @@
                     console.log(hobby[i].value);
                     //콘솔 출력 부분 
                     area3.innerHTML += hobby[i].value + "<br>";
+                    area3.innerHTML += hobby[i].id + "<br>";
 
                     //area3.innerHTML = hobby[i].value + "<br>";
                     //맨 마지막 부분 하나만 나온다.
@@ -187,7 +188,7 @@
                 //div1.innerText = test[i];
                 //그냥 넣으면 맨 끝에 것만 
                 div1.innerText += test[i] + "<br>";
-                div.innerHTML += test[i] + "<br>";
+                //div.innerHTML += test[i] + "<br>";
             }
 
         }
@@ -218,7 +219,7 @@
         var divE1 = document.querySelector("#test2");
         //아이디는 아이디로 찾으면 된다.
         var h2E1 = document.querySelector(".test>h2");
-        //test 아래에 h2 찾을때  위와 같이 한다. 
+        //test 아래에 h2 하나만 찾을때 위와 같이 한다. 
         var spanE1 = document.querySelector(".test+span");
         //span 요소 가져오기 
         
@@ -271,47 +272,10 @@
             //변수 선언하면 까먹고 변수를 그대로 쓰면 꼬일 수가 있음 
             //자바처럼 자료형을 나눠서 쓴다. 
             var p2 = document.querySelector("#id_p");
-            
-            
+           
         }
 
     </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

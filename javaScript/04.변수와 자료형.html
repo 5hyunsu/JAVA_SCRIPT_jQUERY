@@ -7,7 +7,8 @@
 </head>
 <body>
     <h1> 변수와 자료형 </h1>
-    <h2> 변수 선언시 var뿐만 아니라 let, const이용하여 선언 가능 </h2>
+    <h2> 변수 선언시 var뿐만 아니라 let, const이용하여 선언 가능 (권장사항)</h2>
+    <!---오류 찾기가 쉽다-->
 
     <h3> *var, let, cons의 차이점 </h3>
 
@@ -42,7 +43,7 @@
             console.log("---2번 끝----------------------");
 
 
-            // 3) const는 중복선언 불가능 , 재할당도 불가능, (자바 상수 느낌)
+            // 3) const는 중복선언 불가능 , 재할당도 불가능, (자바 상수 느낌, 똑같지는 않다)
             //    한번 초기화 하면 값 변경 불가능 하다. 
             const userName = "홍길동" ;
             console.log(userName);
@@ -52,6 +53,8 @@
             // console.log(userName);
             // 재할당이 되지 않아서  여기서는 오류가 안뜨지만 
             // html 콘솔에서는 값이 뜨지 않는다. 
+
+            //객체를 만들었는데 그 안의 값 변경은 가능하다. 
 
             /*
              var은 자유롭게 변수선언, 사용할 수 있다는 장점이 있지만 
@@ -71,6 +74,7 @@
                     var name = "이길동";
                     console.log(name);
                 }
+                //if문 안이나 for문에서 사용해도 밖에서 사용 가능하다. 
                 console.log(name);
 
                 for(var i=0;i<4 ; i++) {
@@ -97,12 +101,215 @@
 
     <script>
         //window.onload는 해당 문서가 로딩이 다 된 후에 바로 실행 시킬 코드를 넣어준다
-        window.onload = function() {
-            console.log("문서로딩완료");
+        // window.onload = function() {
+        //     console.log("문서로딩완료");
         // 익명함수 
+        //}
+
+        //특정 함수 영역 밖에 선언되 변수는 전역변수 임 (어디든 사용 가능)
+        //03.요소가져오기.html과 다르게 function 밖에 변수를 설정함 (밖에)
+        var declareVar = "var로 전역변수"; 
+        let declareLet = "let로 전역변수";
+        const declareConst = "const로 전역변수";
+
+
+        //declareNone = "그냥 무조건 전역변수"; //변수명 앞에 아무런 키워드가 없으면 전역변수가 됨
+        
+
+        window.onload = function() {
+            // console.log(declareVar);
+            // console.log(declareLet);
+            // console.log(declareConst);
+            // console.log(declareNone);
+            // console.log("---전역변수----------------------");
+            // 주석 처리 해줘야 지역변수 값이 나온다. 
+            // 안하면 undefined 뜬다 
+
+
+
+
+            //지역변수 선언 
+            // 기본적으로 지역변수 명과 전역변수명이 같은 경우 
+            // 지역변수가 우선순위가 높음 
+            var declareVar = "var로 지역변수"; 
+            let declareLet = "let로 지역변수";
+            const declareConst = "const로 지역변수";
+            //자바 인스턴스 메소드 아래에 선언해주면 전역변수로 그 안에 
+            //아무곳에서나 사용 가능 하다. 
+
+
+            //지역변수
+            console.log(declareVar);
+            console.log(declareLet);
+            console.log(declareConst);
+            console.log("------------------");
+            // 지역변수 같이 선언 해주면 undefined라고 뜬다. 
+            // 이유는 우선순위의 문제다. 
+            // 부모에게 변수가 int var =10; 
+            // 인스턴스 변수 in var = 20;
+            //  객체안에 메소드
+
+
+            //자바라면 ---- 메소드 안 이 나옴 
+            // 지역변수 먼저 나옴 
+            /*
+            class A {
+                String name = "부모";
+            }
+
+            class B extends A {
+                String name = "자식";
+
+                String me() {
+                    String name = "메소드안";
+                    System.out.println(name);
+                }
+            }
+            */
+
+            //전역변수에 접근하려면 => window. 또는 this. 로 접근 가능 
+            //단 var로 선언한 경우에만 가능 
+            console.log(window.declareVar);
+            console.log(this.declareVar);
+
+            //let, const 불가 , undefined 뜬다. 
+            console.log(window.declareLet);
+            console.log(this.declareConst);
+            console.log("------------------");
+        
+            // 변수명 앞에 아무런 키워드가 없으면 무조건 전역변수 
+            declareNone = "얘는 뭘까요?";
+            console.log("지역변수로 출력 : " + declareNone);    //지역변수->출력
+            console.log("전역변수로 출력 : " + this.declareNone);   
+            test();
+
+             }
+
+            function test() {
+                console.log(declareNone); //무조건 전역변수 declareNone
+            }
+
+    </script>
+
+    <hr> 
+
+    <h3> * 자료형 </h3>
+    <p>
+        Dynamic Typing : 변수 선언시 자료형을 별도로 지정하지 않음(자료형의 개념이 없는 것은 아님)
+        => 변수별로 타입이 지정되지 않고, 대입되는 값에 따라 타입이 결정됨
+    </p>
+
+    <h4> 자바스크립트의 자료형 </h4>
+    <ul>
+        <li>string(문자열)</li>
+        <li>number(숫자,실수,양수,정수 다 )</li>
+        <li>boolean(논리값)</li>
+        <li>object(객체)</li>
+        <li>function(함수)</li>
+        <li>null (초기화가 안되어 있는 변수) </li>
+        <li>undefined (정의되지 않은 변수) </li>
+    </ul>
+
+    <button onclick="typeTest();">자료형테스트</button>
+    <div id="area"></div>
+    <script>
+        function typeTest() {
+            const name = "홍길동";
+            const age = 20;
+            const bool = false;
+            const hobby = ["영화","공부","js공부","잠자기"];
+            const divE1 = document.querySelector("#area");
+            // document.getElementById("area");
+
+            const user = {
+                name : "애드인에듀" ,   //키, 값 이라고 말을 하기도 한다. 
+                age : 27,              // user.name이라고 호출하면 된다. 
+                id : "addinedu"
+            };
+
+            const testFn = function() {
+                alert("함수호출");
+            }
+            //한번 값을 넣으면 바꿀 수 없다. 
+
+            let noval;
+
+            console.log("=================");
+            console.log(typeof name, name);
+            console.log(typeof age, age);
+            console.log(typeof bool, bool);
+            console.log(typeof hobby, hobby);
+            console.log(typeof divE1, divE1);
+            console.log(typeof user, user);
+            console.log(typeof testFn, testFn);
+            console.log(typeof noval, noval);
+
+
+            //백틱 (ES6) 사용시 \n을 사용하지 않아도 줄바꿈이 들어감 
+            //백틱 안에 달러기호 ${}를 사용하면 변수나 표현식을 표현할 수 있음
+            const name2 = `hello ${name}`;
+            //변수명 중괄호로 해주고  그 앞에 $ 해주면 변수 불러오기 
+            console.log(name2);
+            // new 객체 만들어서 사용하는데 변수, 메소드, 인트, 블리언 
+            // 여러가지 자료형이 복합적으로 포함되어 있다. 
+            // 그 안에 있는 내용을 일일히 출력하지 않는다. 
+
+            // 화면 출력시 (텍싀트로 출력되기 떄문에 콘솔과 다르게 보일 수 있음)
+            divE1.innerHTML = typeof name + ", " + name + "<br>";
+            //백틱 사용 안하면 위처럼 표시 해야 한다. 
+            divE1.innerHTML = `${typeof name}, ${name}<br>`;
+            //백틱 사용하면 콤마도 문자열로 출력  
+            divE1.innerHTML += `${typeof age}, ${age}<br>`;
+            divE1.innerHTML += `${typeof bool}, ${bool}<br>`;
+            divE1.innerHTML += `${typeof hobby}, ${hobby}<br>`;
+            divE1.innerHTML += `${typeof divE1}, ${divE1}<br>`;
+            divE1.innerHTML += `${typeof user}, ${user}<br>`;
+            divE1.innerHTML += `${typeof testFn}, ${testFn}<br>`;
+            divE1.innerHTML += `${typeof noval}, ${noval}<br>`;
+            //3번 클릭 한줄,  4번 클릭 한페이지 
+
+
+            //math abs round 사용할 수 있음, 형변환도 가능 숫자 문자 형변환 가능 
+            //자바랑 비슷하게 사용 가능 하다. 
+
+            
         }
     </script>
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 </body>
 </html>

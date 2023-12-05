@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .body{
+            width: 800px;
+        }
+        .table {
+            
+                border : 1px solid;
+                padding: 15px;
+                width: 100%;
+                border-radius: 10px;
+                background-color: rgb(135, 206, 234);
+                
+                                }
+        fieldset {
+            
+                border : 1px solid;
+                padding: 15px;
+                width: 100%;
+                border-radius: 10px;
+                background-color: rgb(135, 206, 234);
+                margin-right: 30%;
+                
+                                }
+
+        fieldset {
+            
+            border : 1px solid;
+            padding: 15px;
+            width: 100%;
+            border-radius: 10px;
+            background-color: rgb(135, 206, 234);
+            margin-right: 30%;
+            
+                            }
+        td {
+            
+            padding: 3px;
+        }
+
+        .form{
+            display: flexbox;
+        }
+        .table{
+            display: inline-block;
+        }
+
+
+
+    </style>
+</head>
+<body>
+    <h1>회원가입</h1>
+   <!-- <table class="table"> -->   
+    <fieldset>
+        <fieldset>
+            <legend>필수입력사항</legend>
+            <form name="essential" method="POST">
+            <table>
+                <tr>
+                    <tr>
+                        <td align="center"><b>ID</b></td>
+                        <td><input name="userId" placeholder="아이디 10글자 이내" size="30%"></td>
+                        <td><button name="idcheck">중복확인</button></td>
+                    </tr>
+                    <tr>
+                    <td align="center"><b>비밀번호</b></td>
+                    <td><input type="password" id="userPwd" placeholder="영문,숫자,특수문자 포함 8자 이상" size="30%"></td>
+                    </tr>
+                    <tr>
+                    <td align="center"><b>비밀번호 확인</b></td>
+                    <td><input type="password" id="userPwdcheck" size="30%"></td>
+                    </tr>
+                    <tr>
+                    <td align="center"><b>Email</b></td>
+                    <td><input name="pwdcheck" size="30%"></td>
+                    <td><input list="emails" name="이메일" placeholder="직접입력" size="7%">
+                        <datalist id="emails" >
+                            <option value="@gmail.com">
+                            <option value="@naver.com">
+                            <option value="@daum.net">
+                        </datalist>
+                    
+                    </td>
+                    </tr>
+                </tr>
+            </table>
+            </form>
+        </fieldset>
+    
+        <fieldset>
+            
+            <legend>추가정보 </legend>
+            <form method="POST">
+            <table>
+                <tr>
+                    <tr>
+                        <td>프로필 사진 </td>
+                        <td><label for ="profile">파일선택
+                            <input type="file"
+                            id="profile"
+                            accept="image/png, image/jpeg">
+                        </label>
+                        </td>
+                        
+                    </tr>
+                    <tr>
+                        <td>성별</td>
+                        <td><input type="radio" name="gender">남
+                            <input type="radio" name="gender">여</td>
+                    </tr>
+                    
+                    <tr>
+                        <td>
+                        생년월일 
+                        </td>
+                        <td>
+                            <input type="date">
+                        </td>
+                    </tr>
+                    <tr>
+                       <td colspan="2">취미</td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" value="야구">야구
+                            <input type="checkbox" value="농구">농구
+                            <input type="checkbox" value="축구">축구<br>
+                            <input type="checkbox" value="공부" checked>공부
+                            <input type="checkbox" value="음악감상">음악감상<br>
+                            <input type="checkbox" value="기타">기타
+                            <input type="text" >
+                            
+                            </td>
+                    </tr>
+        
+                    <tr>
+                        <td colspan="2"> 자기소개</td>
+                    </tr>
+                    <tr>
+                        <td><input type="text"
+                                  style="width:300%; height:200px";></td>
+                    </tr>
+                </tr>
+            </table>
+            </form>            
+        </fieldset>
+        <br>
+        <input type ="button" value="회원가입" onclick="returntest()";>
+        <input type = "reset" value ="다시입력" >
+
+        <script>
+           function returntest() {
+            var input1 = document.getElementById('userPwd').value;
+            var input2 = document.getElementById('userPwdcheck').value;
+            
+            // var userPwd = input1.value;
+            // var userPwdcheck = input2.value;
+
+            if (input1 ==input2) {
+                alert("비밀번호가 일치합니다.")
+                return submit;
+            } else {
+                alert("비밀번호가 틀립니다")
+                document.essential.userPwdcheck.focus();
+            }
+            
+            document.getElementById("area5").value = id + ", " + pwd; 
+            //value 대신에 innertext 넣어도 된다. 
+        }
+
+        </script>
+        </td>
+    </table>
+        
+   
+</fieldset>
+
+      
+</body>
+</html>
