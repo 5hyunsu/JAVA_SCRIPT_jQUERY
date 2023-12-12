@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>함수</title>
+    <style>
+        .area {
+            width: 700px;
+            border: 1px solid; 
+            
+            height: 300px;
+        }
+    </style>
+</head>
+
+    <h1>함수</h1>
+    <h3> * 선언적 함수 </h3>
+    <pre> 
+        function 함수명([매개변수, 매개변수, ....]){
+            함수호출시 실행할  코드 ; 
+            [return 결과값; ]
+        }
+    </pre>
+
+    <div id="area1" class="area"></div>
+    <button onclick="test1();">실행확인 </button>
+
+    <script>
+        function test1() {
+            document.getElementById('area1').innerHTML = 'test1() 함수 실행 <br>';  
+              }
+    </script>
+
+    <!--함수에 이름이 없다.-->
+
+    <h3> 익명함수 (이름없는 함수)</h3>
+    <pre>
+        변수| 속성 = function(매개변수 ) {
+            실행할 코드;
+            [return 결과값;]
+        }
+    </pre>
+
+    - 특정 변수나 속성에 대입되는 함수 제시시 주로 사용됨 
+      (주로 이벤트 핸들러 작성시 사용) 
+
+      <div id="area2" class="area"></div>
+      <button id="btn"> 실행확인</button>
+      <!--이름이 없어서 온클릭을 사용안하고 id 사용해서 실행 시킴 -->
+
+      <script>
+        const btn = document.getElementByid('btn');
+        //이름이 없어서 어떠한 이벤트가 발생했는지를 알려준다
+        btn.onclick = function(){
+            document.getElementById('area2').innerHTML = "이벤트핸들러를 통해 실행 됨 ";
+        }
+      </script>
+    
+    <!--이벤트 핸들러가 안먹힐 수 있다.  완전하진 않고 잘 사용하지 않는다 
+        잘 안먹힐 경우 문제가 있다. -->
+
+
+        <h3> 화살표 함수 (arrow function)</h3>
+        <pre>
+            - 본문에 리턴만 있을 때
+              변수 = ([매개변수, 매개변수,...]) => 리턴값;
+            - 본문에 내용이 여러줄 일 때 
+              변수 = ([매개변수, 매개변수,...]) => {     
+                한줄일 때는 한줄로,  넘어감 
+                실행코드 ;
+                실행코드 ;
+                ...
+                [return 결과값;]
+              } 
+            - 익명함수를 간단히 작성하는 방법 (ES6(ES2015)에 추가 )
+
+        </pre>
+
+
+        <div id = "area3" class="area"></div>
+        <button id="btn2">실행확인</button>
+
+        <script>
+            //익명함수라 function 안들어감 
+            const area3 = document.getElementById('area3');
+            //클릭이 되면 글씨를 넣어주고 싶다. 
+            //btn을 찾아 갖고 와서 펑션 정의 하고 넣어준다. 
+            const btn2 = document.getElementById('btn2');
+            // btn2.onclick = function(){
+            const value = '홍길동';
+            const age = 25;
+
+            //     document.getElementById('area3').innerHTML = "이벤트핸들러를 통해 실행 됨 ";
+            // }
+            //btn2에는 document.getElementByid('btn2'); 이 들어있다. 
+
+           // btn2.onclick = () =>  document.getElementById('area2').innerHTML
+            // 빈괄호는 펑션이 없다. 
+
+
+            //위의 것을 화살표 함수로 고치면 
+            // 매개변수가 없는 함수 : 반드시 괄호 있어야 함 
+            btn2.onclick = () =>  area3.innerHTML = '화살표 함수가 실행됨<br>';
+            //들어가는 값이 없을 때는 괄호 있어야 함. 
+
+            btn2.onclick = function(value){
+                area3.innerHTML = value +"이벤트핸들러를 통해 실행 됨 ";
+            }
+            //들어가는 값이 하나일 때 
+            //매개변수가 1개인 함수 : 반드시 괄호 생략 가능 
+            btn2.onclick = value => btn2.onclick = () =>  area3.innerHTML = '${value} 화살표 함수가 실행됨<br>';
+            //매개변수가 2개 3개일때 
+
+
+            btn2.onclick = function(value, age){
+                area3.innerHTML = '${value}님 환영합니다';
+                //function안에 리턴되었다고 생각되면 된다. 
+                
+            }
+
+            btn2.onclick = (value, age) => area3.innerHTML = '${value} 화살표 함수가 실행됨<br>';
+             //매개변수가 2개 ,3개일때 변수 넣긴 했지만  괄호 처리 해준다. 
+             //여러줄일때는 중괄호로 묶어준다. 
+
+
+
+             //매개변수 1개일때 2개일때 괄호 생략가능 한지 구분해서 알아 둘 것 
+
+
+
+             // 본문 내용이 여러줄 일 때
+             const result = () => {
+                //내용을 이곳에 채워 넣고 변수 설정. 변수에 넣어줄지, 리턴값에 걸어줄지
+                //이때  function은 생략한다. 
+                const a =1;
+                const b = 2;
+                return a+b; 
+             }
+        </script>
+
+        <h3> * 즉시 실행 함수 (life(immediately invoked function expression))</h3>
+        <!--window.onload 무조건 실행 같은 느낌-->
+        <pre>
+            - 정의하면서 즉시 실행되는 함수 
+            - 단 한번만 호출 됨 
+              ([변수] = function([매개변수, 매개변수,...]) { 
+                해당 함수 호출시 실행될 코드 ; 
+                인자가 있으면 뒤에 인자를 써준다.
+              })(인자,...);
+
+        </pre>
+
+        <script>
+            //window.onload = function(){}  - 로딩이 되면 실행
+
+            (function() {   // 펑션 지정되면 즉시 실행 
+                console.log('iife 실행');
+            }) (); // ()가로안에 인자 값을 넣어준다. 
+
+            (function(name){
+                console.log(`hi, ${name}`);
+                const k = 999;
+                console.log(k);
+            })('애드 인 에듀');
+            
+            //화살표 함수로 고치기 
+            (function(name){
+                console.log(`hi, ${name}`);
+            })('애드 인 에듀');
+
+            //하나면 생략 가능 
+            ((name) =>  console.log(`hi, ${name}`)) ('애드인에듀');
+            (name =>  console.log(`hi, ${name}`)) ('애드인에듀');
+
+        </script>
+
+        <hr>
+
+        <h2> 함수의 매개변수 </h2>
+
+        <div id="area4" class="area"></div>
+        <button onclick="test2('안녕');">함수의 문자 매개변수 실행확인</button>
+        <button onclick="test2(10);">함수의 숫자 매개변수 실행확인</button>
+        <button onclick="test2([1,2,3]);">함수의 배열 매개변수 실행확인</button>
+        <button onclick="test2(true);">함수의 논리 매개변수 실행확인</button>
+
+        <br>
+        <button onclick="test2(prompt('이름 입력'));">이름 입력 </button>
+        <!-- 매개변수의 갯수가 더 많이 전달 될 때  2개 3개 전달할 때 : 오류는 없는데 전달은 가능 
+             초과된 전달 값은 무시 함 -->
+        <button onclick=" test2('안녕','반가워');">여러개 매개변수 </button>
+        <!-- 뒤에 반가워는 무시되서 짤려서 출력이 된다 -->
+        <!--하나 정의 했는데 하나도 넣지않으면 더 적게 전달 가능 ( 오류 안남 )
+          단, undefined -->
+
+        <button onclick="test2();">매개변수 없음 </button> 
+        <!-- undefined 값으로 나온다. -->
+
+        <script>
+            //매개변수 제시시 자료형지정하지 않음 , 선언구문x => 변수명 
+            //const
+            //let
+            //var   이 셋중에 하나로 변수 지정 했지만...모두 다 들어 올 수 있으므로 지정안해도 된다. 그나마 쓴다면 var
+            function test2(value) { //여기서 자료형 쓰지 않는다. value 자료지정하지 않는다
+                document.getElementById('area4').innerHTML =value; 
+            }
+        </script>
+
+
+
+
+
+        <!--12/7 목요일 -->
+
+        <h3> * 매개변수 관련 arguments 배열 </h3>
+        <p>
+            함수 호출시 전달되는 값은 내부적으로  arguments배열에 담김<br>
+            * arguments : 모든 함수마다 내부적으로 하나씩 존재하는 배열 객체
+
+        </p>
+
+        <div id ="area5" class="area"></div>
+        <button onclick="test3(12,3,4,7,8,4)">매개변수 실행확인</button>
+        <script>
+            function test3(){
+            console.log(arguments);
+            console.log(arguments[0]); //맨 앞에 것이 나온다.
+
+            const area5 = document.querySelector("#area5");
+
+            let sum=0;
+            for(let ele of arguments){
+                sum += ele;
+            }
+            area5.innerHTML += `총합 : ${sum}<br>`;
+            area5.innerHTML += `평균 : ${sum/arguments.length}<br>`;
+        }
+        </script>
+
+        <h3> *매개 변수에 this 관련 전달하기 </h3>
+        <p>
+            this 현재 이벤트가 발생한 요소 객체 
+        </p>
+
+        <button onclick="test5(this)">버튼1</button>
+
+        <button onclick="test5(this.innerHTML);">버튼2</button>
+        <!-- 안에 '버튼2'를 콘솔에 보여준다.-->
+        <button onclick="test5(this.innerText);"><b>버튼2</b></button>
+        <!--굵게도 가능 -->
+        <input type="button" value="버튼3" onclick="test5(this.value);">
+        <!--클릭하면 나 자신 this,그중에서 value 값 가져와라 -->
+        <input type="button" value="버튼3" onclick="test5(this);">
+        <!--클릭하면 나 자신 this 전체 다 가져온다 -->
+
+        <button id="btn4" onclick="test5(this.id);">버튼4</button>
+        <!--클릭하면 this 그중에서 id 콘솔에 출력 -->
+        
+        <script>
+            // 위에서 버튼 누르면 id가 test5(this.id)에 들어가고
+            // 그 값이 script test5(a)에서 a값으로 아래 변수로 들어가서
+            // 콘솔에 출력된다
+            function test5(a){
+                console.log(a);
+            }
+        </script>
+
+        <br><br>
+
+        <!--글씨가 클릭에서 클릭됨으로 바뀜 -->
+        <button onclick="test6(this);">클릭</button>
+        <script>
+            function test6(obj){
+                obj.style.backgroundColor = "yellowgreen"
+                obj.innerHTML = "클릭됨";
+            }
+        </script>
+
+    <hr>
+        <h2> 함수의 리턴</h2>
+
+
+        <h3> * 일반적인 값 </h3>
+
+        <div id="area6" class="area"></div>
+        <button onclick="test7();">실행확인</button>
+
+        <script>
+            function test7(){
+                document.getElementById('area6').innerHTML = `랜덤값 : ${ran()}`;
+            
+            }
+
+            function ran(){
+                //const random = Math.random() * 100 + 1
+                //100.999 나온다.
+                const random = parseInt(Math.random() * 100 + 1);
+                return random;
+            }
+        </script>
+
+        <button onclick="console.log(ran());">랜덤값 콘솔확인 </button>
+
+    <hr>
+
+    <h3> * 익명함수 리턴 </h3>
+    이름 : <input id="userName"> <br>
+
+    <!-- ★★★★★★★★★★★★★★★★ -->
+    <button onclick="test8();">익명함수 리턴 괄호 1개 실행확인</button><br>
+    <!-- 1개라면 test8부르고 그냥 값이 리턴해서 끝나고 리턴 알림 펑션 실행 안한다 -->
+    <button onclick="test8()();">익명함수 리턴 괄호 2개 실행확인</button>
+    <!--2개 들어가면  리턴한 값이 2번째 괄호 안에 들어가고  리턴 알림 펑션이 실행되서 알림창이 뜬다 -->
+    
+    <script>
+        function test8() {
+            var inputELE = document.getElementById('userName');
+            // console.log(inputELE.value);
+            return function() {
+                alert(inputELE.value);
+            }
+
+        }
+    </script>
+
+    <h3> 화살표 함수의 리턴 </h3>
+
+    <pre>
+        - 본문이 하나일 때
+            x => {return  값}
+            x => return 값 
+    </pre>
+
+    <div id="area7" class="area"></div>
+    <button onclick="test9();">실행확인</button>
+
+    <script>
+        function test9() {
+            //console.log(eFun);
+
+            //아래는 매개변수가 없을때                                            //객체
+            document.getElementById('area7').innerHTML = `화살표 함수 실행 : ${eFun()}`;
+
+            document.getElementById('area7').innerHTML = `화살표 함수 실행(매개변수 있음) : ${eFun2(10)}`;
+            
+            document.getElementById('area7').innerHTML = `매개변수가 2개 1줄블럭 (싱글블럭) : ${eFun3(10,4)}`;
+            
+            document.getElementById('area7').innerHTML = `매개변수가 3개 2줄블럭  : ${eFun4(10,4,5)}`;
+        
+        }
+
+        let eFun = () => {
+            let result = 5*7;
+            return result; 
+        }
+
+        let eFun2 = value => {
+            let result = value*2;
+            return result; 
+        }
+
+        let eFun3 = (num1, num2) => {return num1*num2; }
+
+        let eFun4 = (num1, num2, num3) => {return num1*num2*num3;}
+    
+    
+    
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+</body>
+</html>

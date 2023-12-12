@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>window 객체</title>
+    <style>
+         .area {
+        border-radius: 30px;
+        padding: 5px;
+        height: 400px;
+        width: 400px;
+        font-size: 50px;
+        color: red;
+        background: lavender;
+        line-height: 100px;
+        text-align: center;
+        }
+
+        .divclass{
+            border: 1px solid;
+            height: 400px;
+            width: 400px;
+        }
+    </style>
+</head>
+<body>
+    <h1>window 객체 </h1>
+    <p>      <!--자바는 object-->
+        window 객체는 자바스크립트의 최상위 객체이며 BOM과 DOM이 있다 <br>
+        - BOM(Browser Object Model) : Location, Screen, Navigator, History<br>
+        - DOM(Document Object Model) : document,
+    </p>
+
+    <h3> - [window.]open("url", "창이름", "창의특성")</h3>
+    <button onclick="test1();">네이버</button>
+    <script>
+        function test1() {
+            // window.open();
+            /*
+            window.open("url","창이름", "창의특성")
+            - url: 열고자 하는 url 주소
+            - 창이름 : 창이름 (target)- 창이름이 같은게 이미 열려있으면 새롭게 열리지 않고 
+            이미 열려있는 곳에 새로고침됨 (하나만 열리고 다른걸 띄우면 기존 것의 새로고침이 된다.) 
+            - 창의 특성 : 새창의 넓이, 높이, 주소창여부, 툴바여부, 스크롤바여부 등등 새창의 특성
+            
+            ※ 창의 특성을 넣지 않으면 새탭에 열리고 특성을 넣으면 새창에 열림
+            
+            */         //새창에서 열림          //쌍따옴표 꼭 넣어야 함 
+           //window.open("https://www.naver.com", "네이버");
+           /*
+            * 창의 특성 
+            => px 
+            width: 창의 너비 
+            height: 창의 높이 
+
+            => yes | no 
+            resizable : 창의 크기 조절 여부 
+            location : 주소창
+            menubar :  메뉴바 
+            scrollbars : 스크롤바
+            status : 상태표시줄 
+            크롬에서 되는게 있고 안되는것이 이고 
+            확인해봐야 함 
+           */
+            // 공통 : 주소창 크기 조절, 수정 안됨, toolbar없음, 상태표시줄 없음, 메뉴가 없음
+            // 크롬, 엣지: 새탭에서 열림, 스크롤바 있음, 리사이즈 가능, 제대로 되는거 없음
+                                               //이 부분 쌍따옴표
+           window.open("https://www.naver.com", "네이버","width=800, height=500px, resizable=no, location=no");
+
+
+
+        }
+    </script>
+    
+    <br>
+
+    <h3> window 객체의 timer 관련 메소드 </h3>
+    <h4> - setTimeout(함수, 일정시간<단위ms>)</h4>
+                         <!-- 단위 ms 넣으라는 소리 -->
+    <button onclick="test2()">실행확인</button>
+    <script>
+        function test2(){
+            const myWindow = window.open();  // 새창이 열리고 
+            myWindow.alert("3초 후에 이 페이지를 종료합니다.")
+
+            setTimeout(() => {
+                myWindow.close();   // 3초 후에 창이 닫힌다. 
+            }, 3000);
+            //1000밀리세컨드 1초, setTimeout은 1번만 실행
+            //setInterval  일정시간후 다시 반복 실행 
+        }
+    </script>
+
+    <br>
+
+    <h4> - [window.]serInterval(함수,일정시간ms)</h4>
+    <p> 내가 지정한 시간 간격마다 "매번" 함수 실행 </p>
+
+    <button onclick="test3();">실행확인</button>
+    <div id = "area1" class="area"></div>
+
+    <script>
+        function test3() {
+            area1 = document.getElementById("area1");
+
+            setInterval(() => {
+                const now = new Date();
+                
+                let hour = now.getHours();
+                let min = now.getMinutes();
+                let sec = now.getSeconds();
+                
+                // 10미만 자릿수 문제 해결
+                // if(hour < 10) {
+                //     hour = "0" + hour; 
+                // }
+
+                // if(min < 10) {
+                //     min = "0" + min; 
+                // }
+                // if(second < 10) {
+                //     sec = "0" + sec; 
+                // }
+
+                //3항연산자  변수 설정하고 적용해야  적용된다. 
+                 hour = hour < 10 ? "0" + hour : hour;
+                 min = min < 10 ? "0" + min : min;
+                 sec = sec <10 ? "0" +sec : sec;
+                area1.innerHTML = `${hour} : ${min} : ${sec}`;
+            }, 1000);
+        }
+    </script>
+
+    <hr>
+
+    <h1> * BOM(Browser Object Model)</h1>
+    
+    <h3> location 객체 </h3>
+    <p> 브라우저 주소창과 관련된 객체 </p>
+
+    <button onclick="console.log(location);"> 실행확인 </button>
+
+    <br><br>
+
+    <a href="https://www.naver.com">네이버로 이동 </a>
+    <br>
+    <br>
+    <br>
+    <!--이동 하게끔 만들어 놓음 
+    버튼을 만들어서 네이버 창으로 옮기게 끔 
+    펑션 스크립트 써서 하면 번거 롭다
+    a태그 눌른 것과 동일하다 -->
+    
+    <button onclick="location.href='https://www.naver.com'";>네이버로 현재 창에서 이동</button>
+    <br><br>
+        
+    <!-- 새탭에서 열기 -->
+    <button onclick="window.open('https://www.naver.com');">네이버로  새탭 이동</button>
+    <br><br>
+    
+    <!-- assign은 뒤로가기 가능(history 정보를 가지고 있다)-->
+    <button onclick="location.assign(`https://www.google.com`);">구글로 assign 이동 </button>
+    <br><br>
+
+    <!-- replace는 뒤로가기 안됨 (history 정보를 가지고 있지 않다)-->
+    <button onclick="location.replace(`https://www.google.com`);">구글로 replace 이동 </button>
+    <br><br>
+
+    <button onclick="window.open('https://www.naver.com');">네이버로  새탭 이동</button>
+    <br><br>
+    
+    <!-- 페이지의 맨 상위로 올라가서 보여줌 (스크롤 top같은 느낌)-->
+    <button onclick="location.href=location.href;">페이지 상위로 올라가는 새로고침</button>
+    <br><br>
+
+    <!-- 내가 보고 있는 현재위치로 새로고침 됨  -->
+
+    <!--기본적으로 들어가 있음 -->
+    <button onclick="location.reload();">현재 위치에서 새로고침</button>
+
+    <h3> screen객체 </h3>
+    <button onclick="console.log(screen);">screen객체 확인</button>
+
+    <h3> navigator 객체 </h3>
+    <button onclick="console.log(navigator);">navigator 객체 확인</button>
+    <!--클라이언트  브라우저 접속 버저 확인하고 제공하는 페이지가 다르다 
+    버전에 따라서 제공해 주늰 것이 다를 수 있다. -->
+    <h3> history객체 </h3>
+    <button onclick="console.log(history);">history 객체 확인</button>
+    <!--앞페이지 뒷페이지 -->
+    <br><br>
+
+
+    <h1> * DOM(Document Object Model) </h1>
+    <p>
+        HTML에 있는 각각의 요소들은 노드(node)라고 함 <br>
+        > 요소노드 (Element Node) : 태그 그 자체만을 의미 <br>
+        > 텍스트노트 (Text Node) : 태그 내에 기록되는 내용 <br><br>
+
+        (1) 텍스트노드 존재하는 요소 (시작태그와 종료태그가 한쌍으로 이루어져 있음) 
+        :  div, h~, li, p, a ..
+        (2) 텍스트노드가 존재하지 않는 요소 (시작태그로만 이루어져 있음) 
+        : input, img, hr, br... 중간에 글씨 안들어간다.  
+    </p>
+    
+    <h3> * 노드(요소) 생성과 관련된 메소드 </h3>
+    <h4> - 텍스트 노드가 존재하는 노드 생성(시작과 종료태그)</h4>
+
+    <button onclick="test4()">요소생성</button>
+
+    <div id="area2" class="divclass"></div>
+
+    <script>
+        function test4() {
+            const area2 = document.getElementById("area2")
+            // 동적으로 요소를 만드는 방법 
+            // 1. "문자열로 만드는 방법 " (가장 편한 방법)
+
+            area2.innerHTML += "<h4>안녕하세요</h4>";
+            
+            // 2. document에서 제공하는 메소드를 이용하여 "요소객체"로 만드는 방법 
+            //    ElementNode 객체 생성: document.createElement("태그");
+            let eleNode = document.createElement("h3") // 
+            console.log(eleNode); // <h3> </h3> 빈 요소가 콘솔에 나옴 
+
+            //     TextNode 객체 생성 : document.createTextNode("문구");
+            let textNode = document.createTextNode("안녕하세요");
+            console.log(textNode); 
+
+            // 위의 2개 노드를 결합 (즉, 요소노드 하위로 텍스트 노드 추가)
+            eleNode.appendChild(textNode); // <h3> 안녕하세요 </h3> <h3> 사이에 textnode 부분을 넣어줘라
+            console.log(eleNode);
+
+            area2.innerHTML += "<br>" //엔터쳐주고
+
+            area2.innerHTML += `<br>${eleNode}`;
+            //eleNode는 객체라서 toString이 호출이 된다. 
+            //결과[object...]
+            area2.appendChild(eleNode);
+
+        }
+    </script>
+
+    <h4> - 텍스트노드가 존재 하지 않는 노드 생성 (시작태그만 존재) </h4>
+    <button onclick="test5();"> 요소생성 </button>
+    <div id = "area3" class="divclass"></div>
+
+    <script>
+        function test5(){
+            let img1 = document.createElement("img1") //<img>
+            //console.log(img1);
+
+            //속성이 추가 (객체를 만든 후에 속성 추가는 점(.)으로 추가)
+            img1.src="resources/img/book1.jpg";
+            img1.width = "200px";
+            img1.height = "150px";
+            console.log(img1);
+
+            document.getElementById("area3").appendChild(img1);
+              
+        }
+
+    </script>
+
+    <h3> * 노드(요소) 삭제와 관련된 메소드 </h3>
+    <button onclick="test6();">요소삭제</button>
+    <script>
+        function test6(){
+            //remove()
+            document.getElementById("area3").firstChild.remove();
+        }
+    </script>
+
+
+
+
+
+<br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br>
+</body>
+</html>

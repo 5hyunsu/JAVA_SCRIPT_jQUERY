@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>정규표현식 문제1</title>
+</head>
+<body>
+    <form action="01.개요.html">
+        아이디 : <input name="userId" id="userId">
+        비밀번호 : <input type="password" name="userPwd" id="userPwd">
+        비밀번호 확인 : <input type="password" name="userRePwd" id="RePwd">
+        <input type="submit" onclick="return validate();">
+        
+    </form>
+
+    <script>
+        function validate(){
+        
+        //아이디 : 영문자 또는 숫자로 시작하고 5글자 이상 12글자 이하 
+        const value=document.getElementById("userId").value;
+        regExp = /^\w{5,12}/;
+        if(regExp.test(value)){
+            alert("아이디 정상 입력");
+        }   else {
+            alert("아이디 잘못 입력");
+            return false;
+        }
+
+        //비밀번호 : 영문자 또는 숫자로 시작하고  중간에는 모든 글자 가능 9글자이상 20글자 미만 
+        const value2=document.getElementById("userPwd").value;
+        regExp = /^\w{9,20}/;
+        if(regExp.test(value2)){
+            alert("비밀번호 정상 입력");
+        }   else {
+            alert("비밀번호 잘못 입력");
+            return false;
+        }
+        
+        // 비밀번호 = 비밀번호 확인 같은지 체크 
+        const value3=document.getElementById("RePwd").value;
+        if (value2 != value3){
+            alert("비밀번호 불일치");
+            return false;
+        }   else {
+            alert("비밀번호 일치");
+        }
+
+
+        }
+
+    </script>
+
+
+
+</body>
+</html>

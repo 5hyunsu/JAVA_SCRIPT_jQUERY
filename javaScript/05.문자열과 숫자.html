@@ -117,7 +117,7 @@
     <hr>
 
     <h3> * 숫자(수학) 관련 메소드 </h3>
-    <button onclick="mathTest();"> 숫자(수학) 관련 메소드 </button>
+    <button onclick="mathTest();">숫자(수학) 관련 메소드</button>
     <div id ="area3" class="area"></div>
 
     <script>
@@ -179,7 +179,7 @@
             
             const test8 = 2 + "3";              //23
             const test9 = 2 + Number("3");      //5
-            const test10 = 2 + parseInt("3.23");   //5   parseint는 버림 
+            const test10 = 2 + parseInt("3.23");   //5   parseInt는 버림 
             const test11 = 2 + parseFloat("3");  //5
             area4.innerHTML += "------------------------<br>";
             area4.innerHTML += `test8 : ${test8}<br>`;
@@ -223,6 +223,9 @@
 
             //input 요소의 value 값은 무조건 string 타입 
             //덧셈을 제외한 연산은 자동형변환 되므로 변환필요 없음 
+
+            //★★★★★★덧셈은 형변환 필수 
+            
             const sum = num1 + num2 ;   // num1num2 
             result.innerHTML = `결과 : ${sum}`;  // 4, 3 인데 결과 43이 나옴 , 
 

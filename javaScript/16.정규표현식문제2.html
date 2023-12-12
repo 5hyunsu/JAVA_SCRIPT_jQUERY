@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>정규표현식 문제2   
+    </title>
+    <style>
+    form {
+            
+        border : 1px solid;
+        padding: 15px;
+        width: 50%;
+        height: 600px;
+        
+        border-radius: 10px;
+       
+        margin-right: 30%;
+        
+        }
+    </style>
+    <h1>회원가입</h1>
+   
+
+</head>
+<body>
+    <form action="01.개요.html">
+        * 아이디 : <input name="userId" id="userId"><br><br>
+          첫글자는 반드시 영문자하고 영문자, 숫자 포함 총 4~12글자로 입력하시오.<br><br>
+        * 비밀번호 : <input type="password" name="userPwd" id="userPwd"><br><br>
+          영문자, 숫자, 특수문자로 총 8~15자로 입력하시오.<br><br> 
+        * 비밀번호 확인 : <input type="password" name="userRePwd" id="RePwd"><br><br>
+          위의 비밀번호와 일치하게 입력하시오. <br><br> 
+        * 이름 : <input type="name" name="userName" id="userName"><br><br>
+          한글로만 이루어져 있어야 되며 2글자 이상으로 입력하시오.<br><br> 
+        * 이메일 : <input type="email" name="userEmail" id="Email"><br><br>
+          이메일 형식에 맞춰 입력하시오.<br><br> 
+        * 취미 : <input type="hobby" name="userHobby" id="Hobby"><br><br> 
+        
+        * 거주지 : <input list="거주지" name="거주지" placeholder="서울" width: 7%>
+            <datalist id="거주지">
+                <option value="경기">
+            </datalist>
+        
+        <hr>
+
+        <input type="submit" onclick="return validate();">
+    </form>
+
+    <script>
+        function validate(){
+        
+        //아이디 : 영문자 또는 숫자로 시작하고 5글자 이상 12글자 이하 
+        const userId=document.getElementById("userId").value;
+        //regExp = /^\w{5,12}/;
+        //const regExp = /^[a-z][a-z0-9]{3,11}$/i      숫자를 \d로 표현 
+        const regExp = /^[a-z][a-z\d]{3,11}$/i
+                        //한글자-한글자  {4,12}
+                        //영문자대소문자시작, 영문자대소문자끝
+                                     //맨 앞에 첫글자 빼고 입력 
+        if(regExp.test(userId)){
+            alert("아이디 정상 입력");
+        }   else {
+            alert("아이디 잘못 입력");
+            return false;
+        }
+
+        //비밀번호 : 영문자 또는 숫자 또는 특수문자로 시작하고  중간에는 모든 글자 가능 9글자이상 20글자 미만 
+        const value2=document.getElementById("userPwd").value;
+        //regExp = /^\w{9,20}/;
+        regExp = /^.{8-15}/i;   //한글까지 포함 
+        regExp = /^[a-z\d~!@#$%^&*]{8-15}$/i  //영문 숫자 특수기호
+                        1
+        if(regExp.test(value2)){
+            alert("비밀번호 정상 입력");
+        }   else {
+            alert("비밀번호 잘못 입력");
+            return false;
+        }
+        
+        // 비밀번호 = 비밀번호 확인 같은지 체크 
+        const value3=document.getElementById("RePwd").value;
+        if (value2 != value3){
+            alert("비밀번호 불일치");
+            return false;
+        }   else {
+            alert("비밀번호 일치");
+        }
+        // 이름 -한글로만 이루어져 있어야 되며 2글자 이상으로 입력하시오.
+        const value4 = document.getElementById("userName").value;
+        regExp = /^[가-힣]{2,}$/
+
+        // 이메일   역슬래시 쩜 = 쩜 , 쩜이 2번 들어갈때 ()-  들어가도 되고 안들어 가도 되고 표현은 괄호를 쓴다  
+        regExp = /^\w+@\w+\.\w+(\.\w+)?/i
+        //                      (     ) 괄호안은 그룹처리 
+        //           + = 한글자 이상
+        //          @ 표시 반드시 
+        //          \.  역슬래시 쩜 = 쩜
+        //           .   그냥 쩜 = 모든 글자 
+        // 딸라 넣어줘도 되고 물음표 넣어줘도 되고 다 괜찮다 
+
+
+        }
+
+    </script>
+    
+</body>
+</html>

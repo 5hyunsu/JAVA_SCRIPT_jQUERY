@@ -6,10 +6,10 @@
     <title>배열</title>
     <style>
         .area {
-            width: 300px;
+            width: 700px;
             border: 1px solid; 
             
-            height: 100px;
+            height: 300px;
         }
     </style>
 </head>
@@ -20,7 +20,8 @@
         - 어떤 자료형의 값들이든 다 하나의 배열 공간에 담을 수 있음  <br>
         - 크기의 제약도 없음 <br>
         - 존재하지 않는 인덱스를 참조해도 오류가 나지 않음. undefined리턴 <br>
-           
+        - 몇개라고 정의 하지 않아도 되고, 큰 의미가 없다. 
+        - 자바랑 비슷하다 
     </p>
     
     <button onclick="arrayTest1()">확인하기</button>
@@ -28,6 +29,7 @@
 
     <script>
         function arrayTest1(){
+            //안에 넣는 것 자료형과 무관하게 다 넣을 수 있다 
             const arr = ['홍길동','서울',23,['트루', false,'12345'],[1,2,3]];  //배열선언, 문자, 순자 둘다 가능 
             console.log(arr);
             console.log(arr[4]);  //배열 찍기 
@@ -67,7 +69,7 @@
         function arrayTest2() {
             const arr1 = new Array();
             const arr2 = new Array(3); // 명시해줘도 된다. 
-            const arr3 = [];  //이렇게 표시해도 된다 
+            const arr3 = [];  //이렇게 표시해도 된다 , 짧아서 많이 사용하는 부분 ★★★★★★★
 
             console.log(arr1);
             console.log(arr2);
@@ -85,10 +87,10 @@
             arr2[2] = '오토바이';
             arr2[3] = '제트스키';
             console.log(arr2);
-            //지정한 것 (3) 과 다르게 4개 집어 넣으면 4개가 된다.
+            //지정한 것 (3개) 과 다르게 4개 집어 넣으면 4개가 된다.
 
             //배열 선언과 동시에 초기화 
-            const arr4 = ['java','oracle','jsp']
+            const arr4 = ['java','oracle','jsp']  // 짧아서 더 많이 쓴다.
             const arr5 = new Array('홍길동', '애드인에듀','신사임당');
 
             console.log(arr4);
@@ -96,9 +98,566 @@
         }
     </script>
 
+    <hr> 
+
+    <h3> * 배열 관련 메소드 </h3>
+    <h4> 1) 배열.indexOf(찾고자하는 요소): 배열에서 해당하는 요소가 위채히 있는 인덱스를 반환 </h4>
+
+    <div id="area2" class="area"></div>
+    <button onclick="indexOfTest();">확인하기</button>
+
+    <script>
+        function indexOfTest () {
+            const area2 = document.getElementById("area2");
+            const arr = ['사과','딸기','포도','귤','복숭아'];
+            const fruit = prompt('찾고자 하는 과일 입력하세요');
+
+            const index = arr.indexOf(fruit);
+            console.log(index);
+
+            area2.innerHTML=`당신이 찾는 과일 ${fruit}는 `;
+            if (index == -1){  //배열 -1이면 
+                area2.innerHTML  += `판매하지 않습니다.`;
+
+                //자바스트립트에서의 동등 비교
+                console.log(1==1);   //true
+                console.log(1=='1');  // =2개 : true =>동등비교연산자 (자료형과 무관하게 실제 값만 일치해도 true)
+                console.log(1===1);  //
+                console.log(1==='1');  // =3개 : 엄격비교연산자(값과 자료형 둘다 일치해야 true)
+            }
+            else {
+                area2.innerHTML += index + '번인덱스에 있습니다';
+            }
+        }
+    </script>
+
+    <hr>
+
+    <h4> 2) 배열.concat(배열, 배열,.....  </h4>
+    <p> 배열 여러개를 결합하고자 할 때 이용</p>
+
+    <div id="area3" class="area"></div>
+    <button onclick="concatTest();">확인하기</button>
+
+    <script>
+        function concatTest() {
+            const area3=document.getElementById('area3');
+
+            const arr1 = ['사과','딸기','포도','귤','복숭아'];
+            const arr2 = ['자동차','기차','오토바이','비행기','킥보드'];
+
+            area3.innerHTML = `arr1 : ${arr1} <br>`;
+            area3.innerHTML += `arr2 : ${arr2} <br>`;
+            area3.innerHTML += `arr1 + "다른배열" + arr2 +'<br><br>`;
+
+            //배열 2개를 합치고자 한다면 
+            arr1.concat(arr2)                            //기준이 앞에
+            area3.innerHTML += `arr1을 기준으로 배열 합침 : ${arr1.concat(arr2)} <br>`;
+            area3.innerHTML += `원본 arr1 : ${arr1} <br><br>`;
+            //합쳐도 원본에 영향을 끼치지 않는다. 
+            area3.innerHTML += `arr2을 기준으로 배열 합침 : ${arr2.concat(arr1)} <br>`;
+            area3.innerHTML += `원본 arr2 : ${arr2} <br><br>`;
+        }
+    </script>
+
+    <hr>
+
+    <h4> 3) 배열.reverse </h4>
+    <p> 배열에 담긴 값들을 역순으로 바꿔주는 함수 </p>
+
+    <script>
+        function reverseTest(){
+            const area4 =  document.getElementById('area4');
+            const arr = [1,2,3,4,5];
+            area4.innerHTML += `arr : ${arr}<br>`;
+            area4.innerHTML += `reverse 결과 : ${arr.reverse()}<br>`;
+            area4.innerHTML += `원본 arr : ${arr}<br>`;
+            //미리 만들어 놓은 함수를 가져다 쓰는 것 
+            //원본이 바뀌어 버린다. 
+        }
+        
+    </script>
+
+
+
+    <h4> 4) 배열.sort </h4>
+    <p> 배열에 담긴 값들을 정렬시켜주는 함수 </p>
+
+    <div id="area5" class="area"></div>
+    <button onclick="sortTest();">확인하기</button>
+
+    <script>
+        function sortTest(){
+            const area5 =  document.getElementById('area5');
+            const arr = [4,2,37,1,2,3,4,5];
+            const name = ['홍길동','김길동','박길동','나길동','강길동']
+
+            area5.innerHTML = `arr : ${arr}<br><br>`;
+            area5.innerHTML += `name : ${name}<br><br>`;
+
+            area5.innerHTML += `sort후 arr : ${arr.sort}<br><br>`;
+            area5.innerHTML += `sort후 name : ${name.sort}<br><br>`;
+
+            area5.innerHTML += `원본 arr : ${arr}<br><br>`;
+            area5.innerHTML += `원본 name : ${name}<br><br>`;
+           
+            area5.innerHTML  += `숫자 내림차순 정렬' ${arr.sort().reverse()} <br>`;
+            //결과 값이 5,4,4,37,3,2,2,1 이렇게 나옴, 두자리수가 더 작게 나옴 
+            area5.innerHTML  += `이름 내림차순 정렬' ${name.sort().reverse()} <br>`;
+        }
+        
+    </script>
+
+    <h4> 5) 배열.push(추가할 요소), 배열.pop() </h4>
+        <p> 
+            5.1) 배열.push(추가할 요소) : 배열의 맨 뒤에 요소를 추가시켜주고 배열의 크기 반환<br>
+            5.2) 배열.pop() : 배열의 맨 뒤 요소를 제거시키고 제거된 요소 반환 <br>
+        </p>
+
+        <div id="area6" class="area"></div>
+        <button onclick="pushPopTest();">확인하기</button>
+
+        <script>
+            function pushPopTest(){
+                const area6 = document.getElementById('area6');
+                const str = ['가산동','서초동','삼성동','역삼동','방배동']
+
+                area6.innerHTML = `str : ${str} <br>`;
+                area6.innerHTML += `push한 후에 배열 갯수 : ${str.push('신도림동')}<br>`;
+                area6.innerHTML += `push한 후 str : ${str}<br><hr>`;
+                // push로 뒤에서 부터 추가해 준다. 
+                // 원본 배열에 영향을 준다. 
+
+                area6.innerHTML += `pop한 후에 (제거된 요소) : ${str.pop()}<br>`;
+                area6.innerHTML += `pop한 후 str : ${str}<br><hr>`;
+                // pop으로 뒤에서부터 제거  
+                // 원본 배열에 영향을 준다. 
+
+                str.pop();
+                str.pop();
+                str.pop();
+                //3개 삭제하고 , 아래에 최종 str 출력하기 
+                area6.innerHTML += `최종 str : ${str}`;
+
+            }
+        </script>
+
+    <h4> 6) 배열.unshift(추가할 요소), 배열.shift() </h4>
+        <p> 
+            6.1) 배열.unshift(추가할 요소) : 배열의 맨 앞에 요소를 추가시켜주고 배열의 크기 반환<br>
+            6.2) 배열.shift() : 배열의 맨 앞 요소를 제거시키고 제거된 요소 반환 <br>
+        </p>
+
+        <div id="area7" class="area"></div>
+        <button onclick="unShiftTest();">확인하기</button>
+
+        <script>
+            function unShiftTest(){
+                const area7 = document.querySelector('#area7');
+                //querySelector 1개만 
+                const arr = ['야구', '농구', '배구', '볼링'];
+
+                area7.innerHTML = `arr : ${arr}<br> `;
+                //arr.unshift('테니스');
+                //shift 삭제된 요소 반환 
+                area7.innerHTML += `unshift한 후 : ${arr.unshift('테니스')}<br>`;
+                //unshift는 배열 앞에 추가 
+                area7.innerHTML += `unshift한 후 : ${arr}<br>`;
+
+                // shift는 앞의 요소 삭제
+                arr.shift();
+                area7.innerHTML += `앞의 요소 삭제 후 : ${arr}<br>`;
+                //테니스 삭제 
+
+                //뒤의 요소 삭제 
+                arr.pop();
+                area7.innerHTML += `뒤의 요소 삭제 후 : ${arr}<br>`;
+                //볼링 삭제 
+
+            }
+        </script>
+
+    <h4> 7) 배열.slice(시작인덱스, 끝인덱스),배열.splice(시작인덱스, 제거수[, 추가할 값]) </h4>
+        <p>
+            7.1) 배열. slice(시작인덱스. 끝인덱스) :배열로부터 시작 인덱스에서부터 끝 인덱스 까지 추출해주는 함수<br>
+            7.2) 배열. splice(시작인덱스, 제거수[, 추가할 값]) : 배열의 요소 추출해서 제거 및 추가
+        </p>
+
+        <div id="area8" class="area"></div>
+        <button onclick="sliceTest();">slice 확인하기 </button>
+
+
+        <script>
+            function sliceTest(){
+                const area8 = document.querySelector('#area8');
+                const arr = ['java', 'jsp', 'html5', 'css3','javascript'];
+
+                area8.innerHTML = `arr : ${arr}<br>`;
+                area8.innerHTML += `[1,4]slice 결과 : ${arr.slice(1,4)}<br>`;
+                // 1에서 4까지가 아니고 1에서 3까지만이라 3개만 나온다 
+                area8.innerHTML += `slice 결과 : ${arr.slice(2)}<br>`;
+                area8.innerHTML += `arr : ${arr}<br>`;
+                
+                //area8.innerHTML += `splice 결과 : ${arr.splice(2,2)}<br>`;
+                // 앞 인덱스 뒤 몇개 
+                //splice 이후 원본에 영향을 끼친다. 0,1,2 2번째 부터 2개 
+                
+                //집어 넣는 방법  1개 집어 넣기 
+                //area8.innerHTML += `splice 결과 : ${arr.splice(2,2, 'spring')}<br>`;
+               
+                //집어 넣는 방법  2개 집어 넣기 
+                area8.innerHTML += `splice 결과 : ${arr.splice(2,1, 'spring','summer')}<br>`;
+                area8.innerHTML += `원본 arr : ${arr}<br>`;
+
+            }
+
+        </script>
+
+
+    <h4> 8) 배열.toString(),배열.join([구분자]) </h4>
+    <p>
+       배열에 각 인덱스에 담긴 값들을 하나의 문자열로 합쳐서 반환 
+    </p>
+
+    <div id="area9" class="area"></div>
+    <button onclick="toStringTest();">toString확인하기 </button>
+
+    <script>
+        function toStringTest(){
+            const area9 = document.querySelector("#area9");
+            //쌍따옴표 외따옴표 모두 괜찮다. 자바스크립트는 상관 노노 
+            const arr = ['서울','경기','인천','강원','부산'];
+            //사람이 보기에는 배열 같아 보이나 컴퓨터가 보기에는 문자열
+
+            area9.innerHTML = `arr : ${arr}<br>`;
+            area9.innerHTML += `toString : ${arr.toString()}<br>`;
+
+            //join은 기본값이 ,를 넣어 연결해 줌 
+            area9.innerHTML += `join : ${arr.join()}<br>`;
+            //위에거는 똑같이 나온다. 
+
+            //구분자를 넣으면 달라진다. (한칸 띄어서 ('')). join은 구분자 가능 
+            area9.innerHTML += `구분자를 넣은 join : ${arr.join('/ ')}<br>`;
+
+            //
+            // var a = ["바람", "비", "불"];
+            // var myVar1 = a.join(); // myVar1에 '바람,비,불'을 대입
+            // var myVar2 = a.join(", "); // myVar2에 '바람, 비, 불'을 대입
+            // var myVar3 = a.join(" + "); // myVar3에 '바람 + 비 + 불'을 대입
+            // var myVar4 = a.join(""); // myVar4에 '바람비불'을 대입
+        }
+    </script>
+
+    <hr>
+
+    <h4> 9) 반복처리 </h4>
+
+    <div id = "area10" class="area"> </div>
+    <button onclick="forTest();">확인하기 </button>
+
+    <script>
+        function forTest() {
+            const area10 = document.querySelector("#area10");
+            const arr = ['가','나','다','라','마','바'];
+
+            area10.innerHTML = `for : `;
+
+            // for( let i=0; i < arr.length(); i++) {
+            //     area10.innerHTML += `${arr[i]}/`;
+            // }
+            // area10.innerHTML += '<br>';
+
+
+            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+                // prof 버전 
+            for( let i=0; i < arr.length; i++) {
+                if(i == arr.length-1){
+                    area10.innerHTML += `${arr[i]}<br>`;
+                }else {
+                    area10.innerHTML += `${arr[i]}/`;
+                }
+              
+            }
+
+                // 내꺼버전 
+            // for( let i=0; i < arr.length; i++) {
+            //     if(i < arr.length-1)
+            //         area10.innerHTML += `${arr[i]}/`;
+            //     else
+            //         area10.innerHTML += `${arr[i]}`;
+            // }
+            //  확실하게 요소 출력하기 위해서는 일치하는 
+            //   ==정확한 조건을 맞춰서 더 확실하게 보이는 
+            // 남이 볼 때 확실하게 보인다. 
+            // i가 같다와 작다의 의미가 차이가 난다. 
+            // 좀 더 코드가 직관적으로 정리해서 짜는 것이 중요하다. 
+            // 시간이 지난 후에 이해가 되냐 안되냐 차이 
+            // 조건을 정확하게 주고 확인하기 위해서  
+            // 내가 보기에도 남이 보기에도 잘 보이게 
+            // 의도가 잘 보인다 - 출력이 어떤 값이 나오는지 
 
 
 
 
+
+
+
+
+            //배열에 인덱스 속성 가져오기 
+            area10.innerHTML = `for in: `;
+            for(let i in arr){
+                area10.innerHTML += `${i}, `;
+            }
+            area10.innerHTML += '<br>';
+
+            for(let i in arr) {
+                if(i == arr.length-1){
+                    area10.innerHTML += `${i} = ${arr[i]}<br>`;
+                }else {
+                    area10.innerHTML += `${i} = ${arr[i]}/`;
+                }
+                area10.innerHTML += `${i} : ${arr[i]}, `;
+                // i는 인덱스 번호 
+            }
+            
+            //배열에 요소 가져오기
+            area10.innerHTML += 'for of : ';
+            for(let ch of arr) {
+                area10.innerHTML += `${ch}, `;
+            }
+            area10.innerHTML += '<br>';
+
+            //각 요소별로 전달한 함수(콜백 함수) 실행 
+            //콜백함수는 안에 들어있는 함수 만큼 실행 된다. 
+            //안에 하나씩 다 돈다. 
+            area10.innerHTML += 'forEach : <br>';
+            arr.forEach(function(elem, index, arr) {
+              area10.innerHTML += `${elem}, ${index}, ${arr}<br>`;
+                       
+              area10.innerHTML +=  `${index} = ${elem} / 원본배열:  ${arr}<br>`;
+            });
+            
+            //elem은 바뀌면 안된다, elem 은 변수 이름, 요소가 들어간다. 
+            //맨뒤에 arr 넣지 않아도 된다. 
+
+
+            // ( 인자 ) 를 넣는다 근데 여기에 function을 넣으면 콜백함수
+            // 자료형 안넣고 
+        
+        }
+    </script>
+
+    <hr>
+
+    <h4>
+        10) map : 배열의 각 요소별 작업 후 새 요소를 담은 배열 반환 
+        11) filter : 각 요소별 콜백 함수를 실행하여 true인 요소만 새 배열에 담아 반환
+        <!--0개에서 부터 개열의 갯수만큼 -->
+        
+        12) reduce : 모든 요소를 대상으로 특정 작업 후 하나의 값(객체)로 반환 <br>
+        <!--반환 값이 하나만 -->
+         - 최대/ 최소값, 누적합 등의 작업에 적합<br> 
+         - reduce(콜백함수, 초기값) :  초기값을 생략하면 배열의 첫번ㅉ 요소가 초기값이 된다<br>
+    
+    </h4>
+        <div id="area11" class="area">
+            <ul></ul>
+        </div>
+        <button onclick="mapTest();">map</button> &emsp;
+        <button onclick="filterTest();">filter</button> &emsp;
+        <button onclick="reduceTest();">reduce</button> &emsp;
+    
+    </div>
+
+    <script>
+        const area11 = document.querySelector('#area11>ul');
+        function mapTest() {
+            const arr = [1, 2, 3, 4, 5];  //  =? [ 1,4,9,16, 25]
+            //[ 1,4,9 ]로 바꾸고 싶다. 자기요소로 하면 바꿀 수 있다
+            const arr2 = arr.map(function(value, index, arr) {
+                console.log(value, index, arr); //안에 돌아가는 것 보기 위해서 콘솔
+                //벨류2, 인덱스 1번 으로 . 배열 갯수만큼 콜백 함수가 돈다. 
+                return value*value; //펑션에서 value만 선택해 줘도 된다
+            });
+            //여기서 value는 변수 내가 정하는 것 
+            console.log(arr);
+            console.log(arr2);
+            // arr  arr2 콜백 함수로 나온다. 
+
+            //이름을 넣어주고 ul 태그를 다 씌워주고 li에 넣어주고 싶다
+            //for문으로 돌리고 
+            //document.querySelector("#area11").innerHTML = arr2;
+
+            const names = ['강남길','황정음','유재석'];
+
+            //area11.innerHTML = names;
+            //하나씩 갖고와서 돌리는 것,  한꺼번에 돌리는 것 
+            for(let i=0; i<names.length; i++) {
+                area11.innerHTML += `<li>${names[i]}</li>`;
+                //li 붙인 만큼 더 나온다. 
+            }
+
+            
+
+            // in과 of의 차이~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            // 위에와 똑같은데 li가 빠졌다. 
+            // for(let i in names){
+            //     area11.innerHTML += names[i];
+            // }
+            // in은 인덱스 번호 , 속성을 같이 갖고 
+
+
+
+            // of로 - elem은 저장 되는 것은 아니다. 
+            // for(let i of names) {
+            //     area11.innerHTML += `<li>${elem}</li>`;
+            // }
+            // of는 배열의 요소를 꺼내 오는 것이고 
+
+
+
+            //저장 가능한 , li 까지 포함해서 저장되어 있음 
+            //밑에 가공해 놓고  만들어 놓으면
+            //쓸때마다 간단하게 가져다 쓸 수 있다. 
+            //★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★
+
+            const nameList = names.map(function(name){
+                return `<li>${name}</li>`;
+            });
+
+            console.log(nameList);
+
+            //펼쳐서 넣고 싶다 , for each만 안함 
+
+            // nameList.forEach(function(elem) {
+            //     //11번에 넣는다. 
+            //     area11.innerHTML += elem;
+            // });
+
+            //위에 만들어 놓은 네임리스트를 가져다가 쓴다. 
+            //무엇이 효율적일지는 만드는 사람이 생각해 본다. 
+            // for(let i=0; i<namesList.length; i++) {
+            //     area11.innerHTML += nameList[i];
+            //     //li 붙인 만큼 더 나온다. 
+            // }
+            
+
+            for(let i in names){
+                area11.innerHTML += nameList[i];
+            }
+
+
+            // for(let i of names){
+            //     area11.innerHTML += nameList[i];
+            // }
+
+
+        }
+        //map으로 리턴값,  필터도 무엇인가 가공해서 리턴해주면 그것을 저장하는 역할을 한다
+        // 변수 만들어 준다 저장할,
+        function filterTest() {
+            const nums = [1,2,3,4,5,6,7,8,9,10];
+            //elem 엘리먼트에 숫자 들어가 있다. 
+            const evens = nums.filter(function(elem, index, arr) {
+                return elem % 2 == 0; 
+            });
+            console.log(evens);
+            area11.innerHTML = `짝수만 추출 : ${evens}<br>`; // li 안넣어 주면 안나도오고, ul이라 안쪽으로 쑥 들어가서 표현됨
+
+            const arr = [];
+
+            // for(let i=0; i<100; i++){
+            //     //뒤에서 값을 넣는다 push
+            //     arr.push(i+1);
+            //     console.log(arr);
+            // }
+            // 1-1
+            // 2-2까지
+            // 100-100까지 나옴
+            
+            //콘솔 밖으로 빼서 100까지만 출력하게 하기 
+            for(let i=1; i<=100; i++){
+                //뒤에서 값을 넣는다 push
+                arr.push(i);
+            }
+            console.log(arr); 
+            area11.innerHTML = arr;
+
+            //3의 배수만 가져와서 콘솔 찍기 
+            const result = arr.filter(function(elem) {
+                return (elem <=30) && (elem % 3 == 0);
+                
+            // 교집합 합집합 구분해서 적어주기 
+            });
+            console.log(result);
+            area11.innerHTML += `30이하 숫자중 3의 배수 : ${result}<br>`;
+
+        }   
+
+        //여기도 배열 
+        function reduceTest() {
+            const nums = [1,2,3,4,5,6,7,8,9,10];
+            const sum = nums.reduce(function(pv,elem, index, arr) {
+                return pv + elem;
+                //콜백은 처음부터 다 돈다. 처음부터 
+                //pv 예전 값, elem 현재값, index
+                //맨 처음 반환 값은 1 
+                // 한번 돌고 나면  ( 1, 현재값2, )
+                // sum에 3이 들어간다. (예전값 3, 현재값3 )
+                // sum에는 6이 들어간다. (예전값 6,  현재값 4,)
+                // sum에는 10이 들어간다. (예전값10, 현재값 5, )
+                // 1부터 10까지 더한 값이 나온다. 
+                // sums에 누적되서 더해진다. 
+
+                //index.arr는 안쓰면 안써도 된다 
+
+            });
+            console.log(sum);
+            area11.innerHTML += `1~10까지 합 = ${sum}<br>`;
+            //매개변수에 콜백함수 들어감,누적 덧셈 구하기 
+
+            // let sum1 = 0;
+            // for(let i=1; i<=10; i++ ) {
+            //     sum1 += i; 
+            //     // 0+1 하고 1+2 하고 3+3 하고 6+4 하고 같은 방식으로 더한다. 
+            // }
+
+
+            const arr = [5,3,8,2,4,9,6,1,7];
+            //가장 큰 값을 가져오고 싶다 
+            const max = arr.reduce(function(previous, current) {
+                //if문도 가능하고 간단하면 삼항연산자도 가능 
+                //항이 3개라서 , 물음표는 삼항연사자에 들어가는 
+                // 조건 ? 참일때 : 거짓일때 
+                return previous > current ? previous : current;
+                //두 수중에 큰 값 도출하기 
+
+                // 처음 돌고 프리비어스 없고 커런트만5 들어간다 
+                // 하나 안하나 처음에는 첫번째 값이 프리비어스로 들어간다. 
+                // 5하고 3을 비교, 다음에 5하고 8을 비교 ,
+                // 8하고 2를 비교, 8하고 4를 비교 , 8하고 9를 비교,
+                // 9하고 6 비교, 9하고 1비교, 9하고 7 비교, 
+                // 최종값 9  
+              
+            });
+            //결과 값은 1개만 나오도록 한다.  가로 안에 넣고 안넣고 차이가 크므로 
+            //주의하도록 한다. 
+            //타임리프jsp할때도 foreach 쓴다. 
+            // 단독으로 돌릴수 있게 하면서 기능이 추가됨, 어려워짐 
+            area11.innerHTML += `배열의 값중 가장 큰 값 = ${max}<br>`;
+
+        }
+    </script>
+
+
+
+
+
+
+
+
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 </body>
 </html>

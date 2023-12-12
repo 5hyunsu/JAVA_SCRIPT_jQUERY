@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>객체메소드 </title>
+    <style>
+        .area {
+            /*width: 700px; */
+            border: 1px solid; 
+            height: 300px;
+            padding : 5px;
+        }
+        .small{
+            height: 200px;
+        }
+
+        .big{
+            height: 400px;
+        }
+    </style>
+</head>
+<body>
+    <h3> *객체 메소드 속성 </h3>
+    <p> 객체의 속성중 함수 자료형인 속성을 메소드라고 부름 </p>
+
+    <div id="area1" class="area small"></div>
+    <button onclick="test1();">실행확인</button>
+
+    <script>
+        function test1(){
+            const area1 = document.getElementById("area1");
+            let name ="제니(JENNIE)";
+
+
+            const dog = {
+                name: "똥개",
+                kind: "비글",    //여기서 kind는 키 
+
+                //function 안에 있냐 밖에 있냐 차이로 작동 되고 안되고 
+                //지역변수, 전역변수 차이 
+
+                //매개변수로 받은 food 
+                eat: function(food){
+                    area1.innerHTML += 'eat메소드가 호출됨<br>';
+                    area1.innerHTML += `${food}<br>`; //food 로컬변수
+
+                                       //객체 나 자신 this (this는 나 자신이 갖고 있는 객체)
+                    area1.innerHTML += `${this.kind}종류인 ${this.name}가 ${food}를 먹고 있어요 <br>`;
+                    
+                                       //오류가 난다 , 자기자신 설정해줘야 
+                    area1.innerHTML += `${kind}종류인 ${this.name}가 ${food}를 먹고 있어요 <br>`;
+                    
+                    //this 사용해서 function 밖의 kind 불러와서 사용 
+                                     // this.name 은 "똥개"
+                                     // name은 위에서 부터 불러오기 때문에 "제니"가 나온다
+                }
+
+
+                //function 안에 있냐 밖에 있냐 차이로 작동 되고 안되고 
+                //지역변수, 전역변수 차이 
+                // eat: function(food){
+                //     area1.innerHTML += 'eat메소드가 호출됨<br>';
+                //     area1.innerHTML += `${food}<br>`;
+                //     area1.innerHTML += `${kind}종류인 ${name}가 ${food}를 먹고 있어요 <br>`;
+                // }
+
+
+
+            }
+            // dog.eat = function(food){
+            //           area1.innerHTML += 'eat메소드가 호출됨<br>';
+            //           area1.innerHTML += `${food}<br>`;
+            //  이렇게 들어 온다고 생각하면 된다. 
+            // food 매개변ㄴ수 받기 위해서 "사료"
+            dog.eat ("사료");
+
+            //매개변수가 없으면 
+            //dog.eat ();
+
+            area1.innerHTML += '-----------------------<br>';
+            let name ="제니(JENNIE)";
+            let age = 25;
+            // ( ES6부터 확 달라짐-문법의 기준이 
+
+            // ES5 
+            const p1 = {
+                name: name, 
+                age : age,  //let age = 25값이 age로 들어감 
+                fun1 : function(){
+                    const result = this.name.toUpperCase();
+                    area1.innerHTML += `${result}!!!<br>`;
+                },
+                setAge : function(vAge){
+                    this.age = vAge;
+                    area1.innerHTML += `나이 : ${this.age}<br>`;
+                }  //age가 밑에서 p1.setage를 가져와서 10이 된다 (25가아니고)
+            }
+            p1.fun1();
+            p1.setAge(10);
+
+
+            // ES6 (2015)
+            // 화살표 함수도 예전 것은 길지만 간단하게 바뀜 
+            // 자바스크립트가 계속 변화함 
+            // 문서 변화 했나 살펴보고 확인해봐야 한다 
+            // 평생을 공부해야 하는 컴공
+
+            const p2 ={
+                name,  // name name 같으면 1번만 써준다.
+                age,   // age age 같으면 1번만 써준다.
+
+                fun2(){  //펑션부분은 동일하다.  펑션 안써줘도 된다
+                    const result = this.name.toUpperCase();
+                    area1.innerHTML += `${result}!!!<br>`;
+                },
+                setAge2(vAge) { //펑션부분은 안써줘도 된다. 
+                    this.age = vAge;
+                    area1.innerHTML += `나이 : ${this.age}<br>`;
+                }
+            }
+            p2.fun2();
+            p2.setAge2(40);  //setAge 이름바꾸기 가능 
+        }
+        </script>
+
+
+
+
+            <h3> * in과 with 키워드 </h3>
+            <p> 
+                -in : 객체내의 해당 속성이 있는지 확인해 주는 키워드 (존재하면 true, 아니면 false)<br>
+                -with : 객체의 속성에 접근할 때 객체명을 생략할 수 있는 키워드(코드를 줄여주는 키워드)
+
+            
+            </p>
+
+            이름 : <input id = "name"><br>
+            국어 : <input type ="number" id="kor"><br>
+            수학 : <input type ="number" id="math"><br>
+            영어 : <input type ="number" id="eng"><br>
+            <button onclick="test2();">실행확인</button>
+            <div id="area2" class="area big"></div>
+
+            
+
+            <script>
+                function test2() {
+                    const area2 = document.getElementById("area2");
+                    const student = {
+                        // name : document.getElementById("name").value,
+                        // kor : document.getElementById("kor").value,
+                        // math : document.getElementById("math").value,
+                        // eng: document.getElementById("eng").value,
+
+                        //여기서 받아 온 값은 인풋으로 넣은 값을 갖고 오면
+                        //나누기, 곱하기, 빼기는 문제 안생김
+                        //플러스는 넘버로 고쳐줘야 함 
+                        //아래처럼 바꿔줘야 함  
+
+                        //name은 그대로 가져와야지 number 붙이면NAN 오류 뜬다.
+                        name : document.getElementById("name").value,
+                        // name 중에서 벨류만 갖고 와라. 
+
+                        //number 쓰지 않으면 문자열로  10088996 이런식으로 그냥 나옴 
+                        // 숫자로 고쳐줘야 플러스 했을때 연산이 된다. 
+
+                        kor : Number(document.getElementById("kor").value),
+                        math : Number(document.getElementById("math").value),
+                        eng: Number(document.getElementById("eng").value),
+
+                        //키는 겟섬 
+                        getSum: function(){
+                            return this.kor+ this.math + this.eng 
+                        },
+                        getAvg:function(){  //정수로만 하고 싶다면 math round 이런식으로 
+                            // 78.8888888 이면 79가 나옴 
+                            // 788.88
+                            // 반올림 하면 789
+                            // 다시 나누기 10하면 
+                            // 78.9가 나온다 
+                            //return Math.round(this.getSum()/3*10) /10;
+                            //자리조정 안되고 정수로만 된다. 
+
+                            //소수점 첫째자리까지 함 , 
+                            //★★★★핑크색 괄호 꼭 넣어줘야 함, 90.0 까지 나옴 ;
+                            return (this.getSum()/3).toFixed(1);
+                            
+                        },
+                         // 자바 오버라이딩과 같다고 생각 (??)
+                        toString:function(){
+                        //return "안녕";    이부분 주석처리 안하면 밑에 return 부분이 안나온다. 
+                        //이부분이 object로 나온다. 
+                        return `이름: ${this.name} 
+                            / 국어 : ${this.kor} 
+                            / 수학 : ${this.math} 
+                            / 영어 : ${this.eng} <br>`;
+                        } 
+
+                    }
+
+
+                   
+                    area2.innerHTML += `${student}<br>`;
+                    area2.innerHTML += `name속성이 있는가? ${"name" in student}<br>`;
+                                        //속성이 없으면 false가 나온다 
+                    area2.innerHTML += `age 속성이 있는가? ${"age" in student}<br>`;
+                    area2.innerHTML += `학생이름 : ${student.name}<br>`;
+                    area2.innerHTML += `국어점수 : ${student.kor}<br>`;
+                    area2.innerHTML += `수학점수 : ${student.math}<br>`;
+                    area2.innerHTML += `영어점수 : ${student.eng}<br>`;
+                    
+                    //직접 써준다고 한다면 
+                    area2.innerHTML += `총점 : ${student.kor+student.math+student.eng}<br>`;
+
+                    //
+                    area2.innerHTML += `총점 : ${student.getSum()}<br>`;
+                    area2.innerHTML += `총점 : ${student.getAvg()}<br>`;
+                
+                    //student 한번만 붙여주면 된다. 편하다 
+                    with(student) {
+                    area2.innerHTML += '-------------------------------<br>';
+                    area2.innerHTML += `학생이름 : ${name}<br>`;
+                    area2.innerHTML += `국어점수 : ${kor}<br>`;
+                    area2.innerHTML += `수학점수 : ${math}<br>`;
+                    area2.innerHTML += `영어점수 : ${eng}<br>`;
+                    
+                    //직접 써준다고 한다면 
+                    area2.innerHTML += `총점 : ${kor+student.math+student.eng}<br>`;
+
+                    //
+                    area2.innerHTML += `총점 : ${getSum()}<br>`;
+                    area2.innerHTML += `총점 : ${getAvg()}<br>`;
+                
+                    }
+                }
+            </script>
+
+            <h3> * 객체의 속성 추가 및 제거 </h3>
+            <p>
+                
+            </p>
+            <button onclick="test3();">객체의 속성 추가 및 제거 실행확인</button>
+            <div id="area3" class=" area small"></div>
+
+            <script>
+                function test3() {
+                    const area3 = document.getElementById('area3');
+                    const people = {}; //빈 객체 생성
+                //객체의 속성 추가 
+                people.name = "아무개"; //있으면 덮어쓰기 , 없으면 만들기 
+                people.hobby = ["게임","운동"];
+                people.dream = "짱프로그래머";
+                people.age = 20;
+                console.log(people);
+                
+                //덮어 쓰기
+                people.dream = "엄청부자"; //안에 dream을 바꿔준다
+                console!.log(people); //원래는 오류가 났었는데 덮어쓰기가 가능해짐
+                
+                //메소드 추가 
+                //es6라도 = 빼면 안된다. 새로운 것을 넣는 다는 의미 
+                people.toString = function(){
+                    return `name : ${this.name}<br>
+                            hobby : ${this.hobby}<br>
+                            dream : ${this.dream}<br>
+                            age : ${this.age}<br>`;
+                }
+
+                console.log(people);
+                area3.innerHTML += people;
+                //정의 안해주면 object가 나온다 
+
+                //객체의 속성 제거 
+                delete(people.hobby);
+                area3.innerHTML += '<hr>'
+                //밑줄 그을 때 hr 이것 사용한다. 
+                area3.innerHTML += people;
+                //hobby가 undefined 뜬다 
+                console.log(people);
+!
+
+            }
+            </script>
+            
+
+
+
+
+
+
+ <br><br><br><br><br><br><br><br><br><br><br>
+ <br><br><br><br><br><br><br><br><br><br><br>
+ <br><br><br><br><br><br><br><br>           
+</body>
+</html>
